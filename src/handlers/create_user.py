@@ -1,5 +1,5 @@
-from db.queries import get_insert_user_query
-from db.db_connection import get_db_connection 
+from ..db.queries import get_insert_user_query
+from ..db.db_connection import get_db_connection 
 import json
 
 def lambda_handler(event, context):

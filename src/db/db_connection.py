@@ -1,6 +1,5 @@
-from operator import ge
 import psycopg2
-from db_config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
+from .db_config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
 
 def get_db_connection():
     try:

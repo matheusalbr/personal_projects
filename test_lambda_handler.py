@@ -1,11 +1,14 @@
-from handlers.create_user import lambda_handler
+import json
+from src.handlers.create_user import lambda_handler
 
 # Simulando um evento de entrada
 event = {
-    'nome': 'Teste Usuario',
-    'email': 'teste3@exemplo.com',
-    'senha': '12345678',
-    'classe_usuario': 'ROLE_STAFF' 
+    'body': json.dumps({
+        'nome': 'Teste3 Usuario',
+        'email': 'teste5@exemplo.com',
+        'senha': '12345678',
+        'classe_usuario': 'ROLE_STAFF'
+    })
 }
 
 # Simulando o contexto (não necessário neste teste)
