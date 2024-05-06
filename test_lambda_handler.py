@@ -1,5 +1,5 @@
 import json
-from handle_users.src.handlers.create_user import lambda_handler
+from handle_users.src.handlers.get_users import lambda_handler
 
 # Simulando um evento de entrada
 event = {

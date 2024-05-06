@@ -1,19 +1,21 @@
-from queries import get_users_query
-from db_connection import get_db_connection 
+from ..db.queries import get_users_query
+from ..db.db_connection import get_db_connection 
 import json
 
 def lambda_handler(event, context):
     try:
-        data = json.loads(event['body'])
         connection = get_db_connection()
         cursor = connection.cursor()
-        query = get_insert_user_query()
-        cursor.execute(query, (data['nome'], data['email'], data['senha'], data['classe_usuario']))
-        connection.commit()
+        query = get_users_query()
+        cursor.execute(query)
+        # Buscar todos os resultados
+        users = cursor.fetchall()
         cursor.close()
         connection.close()
-        response_body = {'message': 'User created successfully'}
-        status_code = 201
+        # Formatar a lista de usuários para JSON
+        users_list = [{'nome': user[0], 'email': user[1], 'senha': user[2], 'classe_usuario': user[3]} for user in users]
+        response_body = {'message': 'Users retrieved successfully', 'users': users_list}
+        status_code = 200
     except Exception as e:
         # Fechando o cursor e a conexão em caso de erro
         if 'cursor' in locals():
@@ -27,3 +29,4 @@ def lambda_handler(event, context):
         'statusCode': status_code,
         'body': json.dumps(response_body)
     }
+
